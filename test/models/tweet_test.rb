@@ -9,4 +9,13 @@ class TweetTest < ActiveSupport::TestCase
   	tweet = tweets(:one)
   	assert_equal tweet.user.id, users(:one).id
   end
+
+  test "tweet can't be blank" do
+  	tweet = Tweet.new(content: "")
+  	assert !tweet.valid?
+  end
+
+  test "tweet can't be longer than 140 characters" do
+  	skip
+  end
 end
