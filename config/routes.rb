@@ -4,7 +4,11 @@ Twitter::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  resources :users, except: [:edit]
+  resources :users, except: [:edit] do
+    member do
+      get 'confirm' # /users/:id/confirm
+    end
+  end
 
   get '/profile', to: 'users#edit'
 

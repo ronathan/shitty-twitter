@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+
+    UserMailer.confirm_email(@user).deliver if @user
+
     redirect_to user_path(@user)
   end
 
@@ -22,6 +25,10 @@ class UsersController < ApplicationController
   def update
     @current_user.update_attributes(user_params)
     redirect_to user_path(@current_user)
+  end
+
+  def confirm
+    head :ok
   end
 
   private

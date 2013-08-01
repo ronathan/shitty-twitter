@@ -16,6 +16,8 @@ class TweetTest < ActiveSupport::TestCase
   end
 
   test "tweet can't be longer than 140 characters" do
-  	skip
+    string = "Hi" * 140
+  	tweet = Tweet.new(content: string)
+    assert !tweet.valid?
   end
 end
