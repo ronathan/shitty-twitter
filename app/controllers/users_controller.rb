@@ -7,11 +7,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
 
-    UserMailer.confirm_email(@user).deliver if @user
-
-    redirect_to user_path(@user)
+    if @user.save
+      UserMailer.confirm_email(@user).deliver
+      redirect_to user_path(@user)
+    else
+      render action: :new
+    end
   end
 
   def show
