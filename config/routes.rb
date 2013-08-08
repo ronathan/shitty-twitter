@@ -18,6 +18,9 @@ Twitter::Application.routes.draw do
   post '/login', to: 'login#create_session'
   get '/logout', to: 'login#logout'
 
+  get '/auth/:provider/callback', to: 'login#create_session'
+  get '/auth/failure', to: 'login#new_session'
+
   root 'welcome#index'
 
   # Example of regular route:

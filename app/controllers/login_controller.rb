@@ -4,9 +4,16 @@ class LoginController < ApplicationController
   end
 
   def create_session
-    user = User.find_by(email: params[:user][:email])
+    if env['omniauth.auth']
+      user = User.from_omniauth(env['omniauth.auth'])
+    else
+      user = User.find_by(email: params[:user][:email])
+      unless user && user.authenticate(params[:user][:password])
+        user = nil
+      end
+    end
 
-    if user && user.authenticate(params[:user][:password])
+    if user
       session[:user_id] = user.id
       redirect_to user_path(user)
     else
