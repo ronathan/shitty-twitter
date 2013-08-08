@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_many :tweets
 
+  has_many :comments_about_me, as: :commentable, class_name: "Comment"
+  has_many :comments_by_me, class_name: "Comment", foreign_key: "author_id"
+
   mount_uploader :avatar, AvatarUploader
 
   has_secure_password

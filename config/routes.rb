@@ -12,7 +12,9 @@ Twitter::Application.routes.draw do
 
   get '/profile', to: 'users#edit'
 
-  resources :tweets, except: [:edit, :update]
+  resources :tweets, except: [:edit, :update] do
+    resources :comments
+  end
 
   get '/login', to: 'login#new_session'
   post '/login', to: 'login#create_session'

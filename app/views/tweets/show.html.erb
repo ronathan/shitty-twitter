@@ -1,4 +1,18 @@
 <h1>A Tweet!</h1>
 <p><%= @tweet.content %></p>
 
+<% @tweet.comments.each do |comment| %>
+  <div><%= comment.author.handle %> says: <%= comment.body %></div>
+<% end %>
+
+<% if @current_user %>
+  <h2>Add a Comment</h2>
+  <%= form_for [@tweet, Comment.new] do |f| %>
+
+    <%= f.text_area :body %>
+    <%= f.submit "Post Comment" %>
+
+  <% end %>
+<% end %>
+
 <%= link_to "All Tweets", tweets_path %>
